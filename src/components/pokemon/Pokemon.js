@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import PokeStats from './PokeStats';
 
 const TYPES = {
 
@@ -130,6 +131,7 @@ export default class Pokemon extends Component {
             const hatchSteps = 255 * (resp.data['hatch_counter'] + 1)
         
             this.setState({
+                name,
                 description,
                 genderRatioMale,
                 genderRatioFemale,
@@ -155,6 +157,7 @@ export default class Pokemon extends Component {
         })
     }
     render() {
+        const statsArray = Object.keys(this.state.stats)
         return (
             <div className="col">
                 <div className="card">
@@ -163,7 +166,7 @@ export default class Pokemon extends Component {
                     <h5>
                         {this.state.pokemonIndex}
                     </h5>
-                </div>
+               
                 <div className="col-7">
                     <div className="float-right">
                         {this.state.types.map(type => (
@@ -173,7 +176,23 @@ export default class Pokemon extends Component {
                             color: 'white'}}> {type}</span>
                         ))}
                     </div>
+                    </div>
                 </div>
+                </div>
+                <div className="card-body">
+                    <div className="row align-itens-center">
+                        <div className="col-md-3">
+                            <img src={this.state.imageUrl}
+                            className="card-img-top rounded mx-auto mt-2" />
+                        </div>
+                        {
+                            statsArray.map(stat => <PokeStats statName={stat} statValue={this.state.stats[stat]}/>)
+                        }
+                                
+                    </div>
+                
+                
+                
                 </div>
                 </div>
 
